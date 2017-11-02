@@ -74,13 +74,13 @@ uint64_t Inode::CreateTime() const noexcept
 void Inode::FillInode(BlocksCachePtr cache)
 {
 	ConfigurationConstPtr const config = cache->Config();
-	size_t const in_block = config->BlockSize() / sizeof(struct aufs_inode);
+	size_t const in_block = config->BlockSize() / sizeof(struct exfs_inode);
 	size_t const block = InodeNo() / in_block + 3;
 	size_t const index = InodeNo() % in_block;
-	size_t const offset = index * sizeof(struct aufs_inode);
+	size_t const offset = index * sizeof(struct exfs_inode);
 
 	m_block = cache->GetBlock(block);
-	m_raw = reinterpret_cast<struct aufs_inode *>(m_block->Data() + offset);
+	m_raw = reinterpret_cast<struct exfs_inode *>(m_block->Data() + offset);
 	AI_CTIME(m_raw) = ntohll(time(NULL));
 }
 
@@ -139,8 +139,8 @@ uint32_t SuperBlock::AllocateBlocks(size_t blocks) noexcept
 
 void SuperBlock::FillSuper() noexcept
 {
-	struct aufs_super_block *sb =
-		reinterpret_cast<struct aufs_super_block *>(
+	struct exfs_super_block *sb =
+		reinterpret_cast<struct exfs_super_block *>(
 			m_super_block->Data());
 
 	InodePtr root = AllocateInode();
@@ -153,7 +153,7 @@ void SuperBlock::FillSuper() noexcept
 	root->SetGid(getgid());
 	root->SetMode(493 | S_IFDIR);
 
-	ASB_MAGIC(sb) = htonl(AUFS_MAGIC);
+	ASB_MAGIC(sb) = htonl(exfs_MAGIC);
 	ASB_BLOCK_SIZE(sb) = htonl(Config()->BlockSize());
 	ASB_ROOT_INODE(sb) = htonl(root->InodeNo());
 	ASB_INODE_BLOCKS(sb) = htonl(Config()->InodeBlocks());
@@ -174,7 +174,7 @@ void SuperBlock::FillBlockMap() noexcept
 void SuperBlock::FillInodeMap() noexcept
 {
 	size_t const in_block =
-		Config()->BlockSize() / sizeof(struct aufs_inode);
+		Config()->BlockSize() / sizeof(struct exfs_inode);
 	size_t const inode_blocks = Config()->InodeBlocks();
 	size_t const inodes = std::min(inode_blocks * in_block,
 		Config()->BlockSize() * 8);

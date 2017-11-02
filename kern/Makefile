@@ -1,5 +1,5 @@
-obj-m := aufs.o
-aufs-objs := super.o inode.o
+obj-m := exfs.o
+exfs-objs := super.o inode.o
 
 CFLAGS_super.o := -DDEBUG
 CFLAGS_inode.o := -DDEBUG

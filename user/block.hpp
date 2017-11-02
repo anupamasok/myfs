@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "aufs.hpp"
+#include "exfs.hpp"
 
 class Configuration
 {
@@ -42,7 +42,7 @@ private:
 
 		size_t const bytes = Blocks() * BlockSize();
 		size_t const inodes = bytes / BytesPerInode;
-		size_t const in_block = BlockSize() / sizeof(struct aufs_inode);
+		size_t const in_block = BlockSize() / sizeof(struct exfs_inode);
 
 		return (inodes + in_block - 1) / in_block;
 	}

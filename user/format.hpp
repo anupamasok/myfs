@@ -28,7 +28,7 @@ private:
 
 	uint32_t		m_inode;
 	BlockPtr		m_block;
-	struct aufs_inode *	m_raw;
+	struct exfs_inode *	m_raw;
 };
 
 using InodePtr = std::shared_ptr<Inode>;

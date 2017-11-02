@@ -3,7 +3,7 @@
 
 #include <linux/types.h>
 
-struct aufs_super_block
+struct exfs_super_block
 {
 	uint32_t	asb_magic;
 	uint32_t	asb_inode_blocks;
@@ -12,9 +12,9 @@ struct aufs_super_block
 	uint32_t	asb_inodes_in_block;
 };
 
-static inline struct aufs_super_block *AUFS_SB(struct super_block *sb)
+static inline struct exfs_super_block *exfs_SB(struct super_block *sb)
 {
-	return (struct aufs_super_block *)sb->s_fs_info;
+	return (struct exfs_super_block *)sb->s_fs_info;
 }
 
 #endif /*__SUPER_H__*/

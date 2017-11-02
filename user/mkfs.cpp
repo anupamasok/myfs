@@ -64,11 +64,11 @@ ConfigurationConstPtr VerifyConfiguration(ConfigurationConstPtr config)
 void PrintHelp()
 {
 	std::cout << "Usage:" << std::endl
-		<< "\tmkfs.aufs [(--block_size | -s) SIZE] [(--blocks | -b) BLOCKS] DEVICE"
+		<< "\tmkfs.exfs [(--block_size | -s) SIZE] [(--blocks | -b) BLOCKS] DEVICE"
 		<< std::endl << std::endl
 		<< "Where:" << std::endl
 		<< "\tSIZE    - block size. Default is 4096 bytes." << std::endl
-		<< "\tBLOCKS  - number of blocks would be used for aufs. By default is DEVICE size / SIZE." << std::endl
+		<< "\tBLOCKS  - number of blocks would be used for exfs. By default is DEVICE size / SIZE." << std::endl
 		<< "\tDEVICE  - device file." << std::endl;
 }
 
